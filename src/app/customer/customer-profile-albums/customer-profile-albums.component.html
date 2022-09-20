@@ -1,0 +1,14 @@
+<div *ngIf="!isLoading else loadingIndicator">
+    <div *ngIf="!!albums">
+        <ul>
+            <li *ngFor="let album of albums">
+                <p>{{album.id}}</p>
+                <p>{{album.title}}</p>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<ng-template #loadingIndicator>
+    Loading...
+</ng-template>
