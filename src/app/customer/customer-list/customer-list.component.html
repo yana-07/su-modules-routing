@@ -1,3 +1,5 @@
-<ul *ngFor="let currCustomer of customers">
+<!-- {{text | async }} -->
+
+<ul *ngFor="let currCustomer of customers$ | async">
     <app-customer-list-item [customer]="currCustomer"></app-customer-list-item>
 </ul>

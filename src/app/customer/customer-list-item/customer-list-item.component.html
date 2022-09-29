@@ -1,4 +1,7 @@
-<p>
-    {{customer.name}}
-    <a [routerLink]="['/user', customer.id]"> Go to Profile </a>
-</p>
+<div>
+    <!-- {{date | date: 'MM/dd/yyyy'}}
+    {{customer.name | uppercase}} -->
+    <div (click)="handleExpand()">{{customer.name | shorten:limit}}</div>
+    <!-- <div>{{customer | myJson}}</div> -->
+    <a [routerLink]="['/customer', customer.id]"> Go to Profile </a>
+</div>
