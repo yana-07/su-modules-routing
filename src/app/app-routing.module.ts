@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CustomerListComponent } from './customer/customer-list/customer-list.component';
 import { CustomerPostsResolver } from './customer/customer-posts.resolver';
 import { CustomerProfileAlbumsComponent } from './customer/customer-profile-albums/customer-profile-albums.component';
 import { CustomerProfilePostsComponent } from './customer/customer-profile-posts/customer-profile-posts.component';
@@ -8,6 +9,7 @@ import { ProfileGuard } from './guards/profile.guard';
 import { AboutComponent } from './pages/about/about.component';
 import { DefaultViewComponent } from './pages/default-view/default-view.component';
 import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
@@ -29,21 +31,29 @@ const routes: Routes = [
     component: AboutComponent
   },
   {
-    path: 'user/:id',
-    //canActivate: [ProfileGuard],
-    component: CustomerProfileComponent,
-    children: [
-      {
-        path: 'posts',
-        resolve: { posts: CustomerPostsResolver },
-        component: CustomerProfilePostsComponent
-      },
-      {
-        path: 'albums',
-        component: CustomerProfileAlbumsComponent
-      }
-    ]
+    path: 'customer',
+    loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule)
   },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  // {
+  //   path: 'user/:id',
+  //   //canActivate: [ProfileGuard],
+  //   component: CustomerProfileComponent,
+  //   children: [
+  //     {
+  //       path: 'posts',
+  //       resolve: { posts: CustomerPostsResolver },
+  //       component: CustomerProfilePostsComponent
+  //     },
+  //     {
+  //       path: 'albums',
+  //       component: CustomerProfileAlbumsComponent
+  //     }
+  //   ]
+  // },
   {
     path: '**',
     component: PageNotFoundComponent
