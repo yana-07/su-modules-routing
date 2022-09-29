@@ -1,4 +1,4 @@
-import { Inject, NgModule } from '@angular/core';
+import { Inject, ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
@@ -19,18 +19,18 @@ import { ErrorHandlerInterceptor } from './error-handler.interceptor';
   exports: [
     HeaderComponent
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorHandlerInterceptor,
-      multi: true
-    }
-  ]
+  // providers: [
+  //   {
+  //     provide: HTTP_INTERCEPTORS,
+  //     useClass: TokenInterceptor,
+  //     multi: true
+  //   },
+  //   {
+  //     provide: HTTP_INTERCEPTORS,
+  //     useClass: ErrorHandlerInterceptor,
+  //     multi: true
+  //   }
+  // ]
 })
 export class CoreModule { 
 
@@ -41,4 +41,22 @@ export class CoreModule {
   //     interceptor.intercept();    
   //   }
   // }
+
+  static forRoot(): ModuleWithProviders<CoreModule> {
+    return {
+      ngModule: CoreModule,
+      providers: [
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: TokenInterceptor,
+          multi: true
+        },
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: ErrorHandlerInterceptor,
+          multi: true
+        }
+      ]
+    }
+  }
 }
